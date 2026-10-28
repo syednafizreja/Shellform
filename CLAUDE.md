@@ -21,7 +21,7 @@ SI units everywhere; every function has a docstring; no hidden constants; every 
 ## Environment
 
 - Windows 11, PowerShell, conda environment `research` (Python 3.12), shared with ShellBench. Run commands with `C:\Users\ASUS\miniconda3\Scripts\conda.exe run -n research <command>`.
-- ShellBench is installed in editable mode from `C:\Users\ASUS\ShellBench`, checked out at the tag in `src/shellform/pin.py`.
+- ShellBench is installed in editable mode from a separate read-only clone, `C:\Users\ASUS\ShellBench-pin`, checked out at the tag in `src/shellform/pin.py`. Never edit files in that clone; ShellBench work happens in `C:\Users\ASUS\ShellBench`.
 
 ## Sync with cloud Claude
 

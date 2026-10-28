@@ -24,15 +24,21 @@ Day 0 (28 Oct 2026): repository structure. Pinned to ShellBench `v0.0.1` until `
 
 ## Setup
 
+ShellForm uses a second, read-only clone of ShellBench, checked out at the pinned tag, so daily ShellBench work never changes ShellForm's inputs.
+
 ```powershell
 conda activate research
-cd C:\Users\ASUS\ShellBench; git fetch --tags; git checkout v0.0.1   # the tag in src/shellform/pin.py
-pip install -e C:\Users\ASUS\ShellBench --no-deps
+cd C:\Users\ASUS
+git clone https://github.com/syednafizreja/ShellBench.git ShellBench-pin
+cd ShellBench-pin; git checkout v0.0.1          # the tag in src/shellform/pin.py
+pip install -e C:\Users\ASUS\ShellBench-pin --no-deps
 cd C:\Users\ASUS\ShellForm
 pip install meshio
 pip install -e . --no-deps
 pytest
 ```
+
+To move the pin: `cd C:\Users\ASUS\ShellBench-pin; git fetch --tags; git checkout <new tag>`, update `src/shellform/pin.py`, run `pytest`, note it in LOG.md.
 
 ## Licence
 
