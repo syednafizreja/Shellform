@@ -4,7 +4,7 @@ description: Daily sync for ShellForm: pull, test, hand off. Run once at the end
 
 Do the daily sync for ShellForm. Do every step yourself without asking me, then report.
 
-Use the conda env `research`: `C:\Users\ASUS\miniconda3\Scripts\conda.exe run -n research <command>`.
+Use the conda env `shellform` (never `research`): `C:\Users\ASUS\miniconda3\Scripts\conda.exe run -n shellform <command>`.
 
 1. `git checkout main` and `git pull origin main`. Read the newest entry in `docs/handoff.md` and the newest day in `LOG.md`.
 2. In `C:\Users\ASUS\ShellBench-pin`, check that the checked-out tag matches `SHELLBENCH_TAG` in `src/shellform/pin.py`. If it does not, report it and stop.

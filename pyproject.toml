@@ -12,8 +12,8 @@ license = "MIT"
 license-files = ["LICENSE"]
 authors = [{ name = "Syed Nafiz Reja Hasib" }]
 keywords = ["form-finding", "concrete shells", "seismic design", "embodied carbon", "force density method"]
-# Runs in ShellBench's conda env "research" (see ShellBench environment.yml)
-# plus meshio. ShellBench itself is installed in editable mode and pinned to
+# Runs in conda env "shellform", a clone of ShellBench's "research"
+# (see ShellBench environment.yml), plus meshio. ShellBench itself is installed in editable mode and pinned to
 # a tag; see src/shellform/pin.py.
 dependencies = []
 
