@@ -1,0 +1,5 @@
+# Store text files with LF line endings; check out with the platform default.
+* text=auto
+*.png binary
+*.jpg binary
+*.pdf binary

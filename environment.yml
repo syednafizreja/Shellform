@@ -1,0 +1,21 @@
+# Conda environment "shellform": a clone of ShellBench's "research"
+# (ShellBench environment.yml) plus meshio. Versions are those installed in
+# the shellform environment on 28 Oct 2026. ShellBench itself is not listed:
+# it is installed in editable mode from the pinned clone (see README, Setup).
+name: shellform
+channels:
+  - conda-forge
+dependencies:
+  - python=3.12
+  - calculix=2.23
+  - pip
+  - pip:
+      - numpy==2.5.4
+      - scipy==1.18.1
+      - pandas==3.0.6
+      - matplotlib==3.11.2
+      - scikit-learn==1.9.1
+      - pytest==9.1.1
+      - gmsh==4.15.2
+      - openseespy==3.8.0.0
+      - meshio==5.3.5
