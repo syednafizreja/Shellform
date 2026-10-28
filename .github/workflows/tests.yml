@@ -1,0 +1,48 @@
+# Run the pytest suite on every push to main and every pull request.
+# ShellBench is private, so it is checked out with a read-only deploy key
+# (secret SHELLBENCH_DEPLOY_KEY) at the tag in src/shellform/pin.py. The tag is
+# read from that file, never written here. The smoke tests need only pytest,
+# ShellBench and the package; versions match environment.yml.
+
+name: Tests
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  pytest:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+
+      - name: Read ShellBench pin
+        id: pin
+        run: |
+          tag=$(PYTHONPATH=src python -c "from shellform.pin import SHELLBENCH_TAG; print(SHELLBENCH_TAG)")
+          echo "Pinned ShellBench tag: $tag"
+          echo "tag=$tag" >> "$GITHUB_OUTPUT"
+
+      - name: Check out ShellBench at the pinned tag
+        uses: actions/checkout@v5
+        with:
+          repository: syednafizreja/ShellBench
+          ref: ${{ steps.pin.outputs.tag }}
+          path: _shellbench
+          ssh-key: ${{ secrets.SHELLBENCH_DEPLOY_KEY }}
+          persist-credentials: false
+
+      - name: Install ShellBench, package and pytest
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install pytest==9.1.1
+          python -m pip install -e _shellbench --no-deps
+          python -m pip install -e . --no-deps
+
+      - name: Run tests
+        run: pytest -v
