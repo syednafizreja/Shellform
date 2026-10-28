@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ShellForm Explorer</title>
+<style>
+  :root { --bg:#f7f7f5; --panel:#ffffff; --ink:#1d1d1b; --muted:#6b6b66; --accent:#c2410c; --warn:#b91c1c; }
+  @media (prefers-color-scheme: dark) {
+    :root { --bg:#151514; --panel:#20201e; --ink:#ededea; --muted:#a3a39c; --accent:#fb923c; --warn:#f87171; }
+  }
+  * { box-sizing:border-box; }
+  body { margin:0; font:15px/1.4 system-ui, sans-serif; background:var(--bg); color:var(--ink); }
+  header { padding:12px 16px; }
+  header h1 { margin:0; font-size:18px; }
+  header p { margin:2px 0 0; color:var(--muted); font-size:13px; }
+  .dummy { color:var(--warn); font-weight:600; }
+  main { display:grid; grid-template-columns:300px 1fr; gap:12px; padding:0 16px 16px; }
+  @media (max-width:760px) { main { grid-template-columns:1fr; } }
+  aside { background:var(--panel); border-radius:8px; padding:12px; }
+  label { display:block; margin:10px 0 4px; font-size:13px; color:var(--muted); }
+  select, input[type=range] { width:100%; }
+  #view { background:var(--panel); border-radius:8px; min-height:420px; position:relative; }
+  #view canvas { display:block; width:100%; height:100%; border-radius:8px; }
+  .stat { font-size:28px; font-weight:600; margin-top:12px; }
+  .unit { font-size:13px; color:var(--muted); }
+  table { width:100%; font-size:13px; margin-top:8px; border-collapse:collapse; }
+  td { padding:2px 0; } td:last-child { text-align:right; font-variant-numeric:tabular-nums; }
+</style>
+</head>
+<body>
+<header>
+  <h1>ShellForm design explorer</h1>
+  <p><span class="dummy">Skeleton: DUMMY DATA, not results.</span> Forms and carbon below are placeholders until results/explorer_data.json exists.</p>
+</header>
+<main>
+  <aside>
+    <label for="span">Span</label>
+    <select id="span"><option value="10">10 m</option><option value="20">20 m</option></select>
+    <label for="supports">Supports</label>
+    <select id="supports"><option value="corners">4 corner supports</option><option value="edges">Continuous edges</option></select>
+    <label for="rise">Rise-to-span</label>
+    <select id="rise"><option>0.10</option><option selected>0.15</option><option>0.20</option></select>
+    <label for="strategy">Strategy</label>
+    <select id="strategy"><option value="gravity">Gravity-only</option><option value="seismic">Seismic-aware</option></select>
+    <label for="sa">Plateau spectral acceleration Sa: <b id="saval">0.0</b> g</label>
+    <input id="sa" type="range" min="0" max="6" step="1" value="0">
+    <div class="stat"><span id="carbon">–</span> <span class="unit">kgCO2e/m² (dummy)</span></div>
+    <table>
+      <tr><td>Thickness</td><td id="thk">–</td></tr>
+      <tr><td>Reinforcement</td><td id="steel">–</td></tr>
+      <tr><td>Buckling factor</td><td id="buck">–</td></tr>
+    </table>
+  </aside>
+  <div id="view"></div>
+</main>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+<script>
+// Data schema the real results will follow (one record per sized design):
+// {span_m, supports, rise_ratio, strategy, sa_g, thickness_mm, steel_kg_m2,
+//  buckling_factor, carbon_gb_kg_m2, carbon_ice_kg_m2, nodes:[[x,y,z],...], n}
+// Until results exist, dummyDesign() fakes a record with the same keys.
+const SA_LEVELS = [0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6];
+const N = 25;
+
+function dummyDesign(span, supports, rise, strategy, sa) {
+  const nodes = [];
+  const h = rise * span;
+  for (let i = 0; i < N; i++) for (let j = 0; j < N; j++) {
+    const u = i / (N - 1) * 2 - 1, v = j / (N - 1) * 2 - 1;
+    let z = supports === "edges" ? (1 - u*u) * (1 - v*v) : (1 - u*u*v*v) * (1 - 0.35*(u*u + v*v) + 0.35*u*u*v*v);
+    if (strategy === "seismic") z *= 1 + 0.6 * sa * (1 - Math.abs(u)) * (1 - Math.abs(v));
+    nodes.push([u * span / 2, v * span / 2, h * Math.max(z, 0)]);
+  }
+  const t = 80 + 400 * sa * (strategy === "seismic" ? 0.6 : 1.0) * span / 20;
+  return { span_m: span, supports, rise_ratio: rise, strategy, sa_g: sa, n: N, nodes,
+           thickness_mm: Math.round(t), steel_kg_m2: +(3 + 20 * sa).toFixed(1),
+           buckling_factor: +(8 - 6 * sa).toFixed(1), carbon_gb_kg_m2: Math.round(t * 0.35 + 2 * (3 + 20 * sa)) };
+}
+
+const view = document.getElementById("view");
+const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+view.appendChild(renderer.domElement);
+const scene = new THREE.Scene();
+const camera = new THREE.PerspectiveCamera(40, 1, 0.1, 500);
+camera.up.set(0, 0, 1);
+camera.position.set(28, -30, 22);
+const controls = new THREE.OrbitControls(camera, renderer.domElement);
+scene.add(new THREE.HemisphereLight(0xffffff, 0x666666, 0.9));
+const sun = new THREE.DirectionalLight(0xffffff, 0.6); sun.position.set(10, -20, 30); scene.add(sun);
+let mesh = null, lastSpan = null;
+
+function buildMesh(d) {
+  const geo = new THREE.BufferGeometry();
+  geo.setAttribute("position", new THREE.Float32BufferAttribute(d.nodes.flat(), 3));
+  const idx = [];
+  for (let i = 0; i < d.n - 1; i++) for (let j = 0; j < d.n - 1; j++) {
+    const a = i * d.n + j, b = a + 1, c = a + d.n, e = c + 1;
+    idx.push(a, c, b, b, c, e);
+  }
+  geo.setIndex(idx); geo.computeVertexNormals();
+  const color = d.strategy === "seismic" ? 0xc2410c : 0x8a8a84;
+  return new THREE.Mesh(geo, new THREE.MeshStandardMaterial({ color, side: THREE.DoubleSide, roughness: 0.7 }));
+}
+
+function update() {
+  const sa = SA_LEVELS[+document.getElementById("sa").value];
+  document.getElementById("saval").textContent = sa.toFixed(1);
+  const d = dummyDesign(+document.getElementById("span").value, document.getElementById("supports").value,
+                        +document.getElementById("rise").value, document.getElementById("strategy").value, sa);
+  if (mesh) { scene.remove(mesh); mesh.geometry.dispose(); }
+  mesh = buildMesh(d); scene.add(mesh);
+  if (d.span_m !== lastSpan) { camera.position.set(1.3 * d.span_m, -1.4 * d.span_m, 1.0 * d.span_m); lastSpan = d.span_m; }
+  controls.target.set(0, 0, d.rise_ratio * d.span_m / 3);
+  document.getElementById("carbon").textContent = d.carbon_gb_kg_m2;
+  document.getElementById("thk").textContent = d.thickness_mm + " mm";
+  document.getElementById("steel").textContent = d.steel_kg_m2 + " kg/m²";
+  document.getElementById("buck").textContent = d.buckling_factor;
+}
+
+function resize() {
+  const w = view.clientWidth, h = Math.max(420, view.clientHeight);
+  renderer.setSize(w, h, false); camera.aspect = w / h; camera.updateProjectionMatrix();
+}
+document.querySelectorAll("select, input").forEach(el => el.addEventListener("input", update));
+window.addEventListener("resize", resize);
+resize(); update();
+(function loop() { requestAnimationFrame(loop); controls.update(); renderer.render(scene, camera); })();
+</script>
+</body>
+</html>
