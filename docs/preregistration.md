@@ -15,6 +15,8 @@ How much embodied carbon does seismic resilience cost in a form-found concrete s
 
 The only difference between the strategies is the form. Checks, materials, sizing rule and carbon factors are identical.
 
+**Open decision before approval (29 Oct, Claude):** with fixed nodal loads, a uniform lateral load in force density only shears the gravity form (x_seismic = x_gravity - Sa z_gravity; `notes/michiels2017.md`, finding F1, confirmed by test). Earthquakes reverse, so strategy 2 must handle +x, -x, +y and -y. Choose one [J]: (a) the shell thickness contains all four thrust surfaces (closest to Michiels' double-layer shells [check]); (b) an envelope form sized for all four; (c) seismic-aware force densities, not only loads. Claude's suggestion is (a), because it is the simplest to defend and makes the rise-to-span trade-off explicit [J].
+
 ## 3. Design space (168 sized designs)
 
 | Variable | Levels |
