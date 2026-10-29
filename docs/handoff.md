@@ -2,6 +2,19 @@
 
 Newest entry first. Each Claude reads this at the start of a session and adds an entry at the end (see "Sync with cloud Claude" in CLAUDE.md).
 
+## 29 Oct 2026, Claude Code in VS Code (Day 1 sync)
+
+**Done:** `notes/michiels2017.md` created with the six headings only (no content yet). New command `.claude/commands/today.md` (`/today [list]`): it does the day's list end to end and reports only what it cannot do. Carbon factors and code values stay with the author (rule 2), and all credit goes to the author. Sync: ShellBench-pin at `v0.0.1`, matches `pin.py`; `pytest` 2 passed; `results/` unchanged.
+
+**Decisions by the author today:** Claude does every step itself and asks only for what cannot be done even with full access; all credit is the author's, with no Claude attribution.
+
+**Open (author):**
+- CI deploy key: Claude Code tried to add it and was blocked by the permission system. Run the four commands in the 28 Oct entry below (or allow the action in Claude Code settings). Then re-run CI and merge PR #1 (`day00-repo`), then this sync PR, which is stacked on it.
+- Today's list not yet done: ShellBench Day 12 GATE (six carbon factor lines, "f_c and minimum confirmed"); Michiels papers (ResearchGate); fill `notes/michiels2017.md` (lateral load rule, S4 candidate).
+- Approve `docs/preregistration.md`.
+
+**Next:** Day 2 (30 Oct). Finish the Day 1 items first; ShellBench GATE work comes first.
+
 ## 28 Oct 2026, Claude Code in VS Code (Day 0 environment and repo)
 
 **Done:** `shellform` env has ShellBench installed from `C:\Users\ASUS\ShellBench-pin` (`v0.0.1`) and ShellForm in editable mode; `pytest` 2 passed; `check_pin()` returns `v0.0.1`. `research` points back at `C:\Users\ASUS\ShellBench`. Stray uv `.venv` (Python 3.15) deleted; VS Code interpreter set to `shellform`. Repo: README rewritten; `environment.yml` (versions read from the installed env); `.github/workflows/tests.yml` (reads the tag from `pin.py`, checks out ShellBench with secret `SHELLBENCH_DEPLOY_KEY`) and `release.yml` (same as ShellBench's); PR template with the code-standards checklist; `.gitattributes`; `.editorconfig`; `pyproject.toml` Issues link. GitHub: description, six topics, Projects off, branches deleted on merge.
