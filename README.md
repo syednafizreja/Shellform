@@ -8,12 +8,12 @@ ShellForm extends the seismic form-finding of Michiels & Adriaenssens (2017, 201
 
 ## Status
 
-Day 1 (29 Oct 2026): check helpers for S2/S3, design space, Michiels reading notes. Pinned to ShellBench `v0.0.1` until `floor-r1` lands.
+Day 2 (30 Oct 2026): pre-registration approved; 3D form-finding solver and both strategies; 25 tests. Pinned to ShellBench `v0.0.1` until `floor-r1` lands.
 
 | Item | Where | Status |
 |---|---|---|
-| Pre-registration | [docs/preregistration.md](docs/preregistration.md) | Draft, awaiting author approval |
-| Seismic-aware form-finding | `src/shellform/` | Waits for ShellBench `floor-r1` |
+| Pre-registration | [docs/preregistration.md](docs/preregistration.md) | Approved 30 Oct 2026 |
+| Seismic-aware form-finding | `src/shellform/formfind.py`, `strategies.py` | 3D solver and both strategies done, tested |
 | Tests S1-S5 | `tests/`, `src/shellform/checks.py` | S2 and S3 check helpers ready; S1, S4, S5 wait for ShellBench tags |
 | 168 sized designs | `src/shellform/design_space.py`, `results/` | Design space and columns defined; no runs |
 | Design explorer | [explorer/index.html](explorer/index.html) | Skeleton, dummy data |

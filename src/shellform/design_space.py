@@ -32,11 +32,12 @@ RESULT_COLUMNS = (
     "max_compression_mpa",
     "max_deflection_m",
     "governing_check",
+    "t_env_m",
     "carbon_gbt51366_kgco2e",
-    "carbon_ice_kgco2e",
     "carbon_gbt51366_kgco2e_m2",
-    "carbon_ice_kgco2e_m2",
 )
+# The +/-25 % factor band (docs/preregistration.md, decision P3) is
+# recomputed from concrete_m3 and steel_kg, so it needs no extra columns.
 
 
 def design_id(span_m, supports, rise_ratio, strategy, sa_g):

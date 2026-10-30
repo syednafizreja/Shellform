@@ -2,6 +2,16 @@
 
 Newest entry first. Each Claude reads this at the start of a session and adds an entry at the end (see "Sync with cloud Claude" in CLAUDE.md).
 
+## 30 Oct 2026, Claude in the app (Day 2, pre-registration approved)
+
+**Done:** 3D force density solver (`formfind.py`), strategies and envelope thickness (`strategies.py`), tests 11 → 25 passed. `docs/preregistration.md` approved, with decisions P1 (strategy 2 = midrange of the four sheared thrust surfaces), P2 (own 3D solver; floor-r1 as the 2D cross-check), P3 (GB/T 51366 plus a ±25 % band; no ICE). Thresholds: λ_LBA ≥ 5 (3, 8), L/300 (GB 50010 Table 3.4.3, p. 11 [check]), t_min 50 mm, 5 mm steps. `docs/data_contract.md` amended.
+
+**Decisions by the author today:** standing delegation: "do not ask me ever. you do it based on the best that you think". Every decision above was made by Claude under it and is marked as such.
+
+**Open (author, whenever convenient; nothing waits on them):** confirm the [check] items in your copies (GB 50010 Table 3.4.3; IASS 1979 / Dulácska & Kollár 1995 for buckling); the Michiels full texts (S4 falls back to a closed form on 4 Nov).
+
+**Next:** 31 Oct, move the pin to v0.1/floor-r1 when tagged; S1b against floor-r1; CalculiX deck for one shell.
+
 ## 29 Oct 2026, Claude in the app (Day 1, author away)
 
 **Done:** `notes/michiels2017.md` (from abstracts only; [check] marks what needs the full text); `src/shellform/checks.py` with `equilibrium_error` (S2) and `rotation_error` (S3), solver-independent so they run on floor-r1 unchanged; `src/shellform/design_space.py` (168 cases, `spans=(10.0,)` gives the 84-case stop-loss space, results columns include `shellbench_tag`); tests 2 → 11 passed. The tests use a small test-only force density solver; it is not ShellForm's form-finder.

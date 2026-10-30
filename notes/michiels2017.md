@@ -42,6 +42,10 @@ Consequences for the pre-registration [J]:
 
 **This is the main decision for 30 Oct:** pick (a), (b) or (c) before approving the pre-registration.
 
+## 5b. Finding F2 (30 Oct, unit-test nets only, not a result)
+
+On 10 m test nets (21 x 21, rise 1.5 m), the strategy 2 mid-surface (the midrange of the four sheared thrust surfaces) changes the envelope thickness t_env by less than 4 % compared with the gravity form, at Sa = 0.1 to 0.5 g, for both support cases. The reason is the four-direction symmetry: shaking in +x and in -x lean the thrust surface opposite ways, so no single surface centres them much better than the gravity form does. This is an early warning that, under the uniform-acceleration model, the answer may be "no meaningful difference". If so, that is reported as it is (pre-registration, section 7). Any differences between the strategies in the FE checks (bending under lateral load) may still matter.
+
 ## 6. S4 candidate (published case to reproduce)
 
 The C&S arch cases (rise/span 1/2, 1/4, 1/8 at 0.15, 0.3, 0.45 g) are the most reproducible: 2D, with stated inputs. The thrust line of a given arch under gravity + a g can be computed with a 2D force density chain and compared with their figure. Figure or table number and readable tolerance: [check full text].

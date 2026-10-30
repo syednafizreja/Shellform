@@ -1,3 +1,5 @@
+> **Amended 30 Oct 2026 (Claude, under the author's delegation).** (1) ShellBench dropped ICE (its decision D29: the licence forbids distribution). ShellForm uses GB/T 51366 only, with a ±25 % factor band (pre-registration P3). (2) ShellBench `floor-r1` form-finds a 2D vault curve, not a doubly curved shell. ShellForm writes its own 3D force density solver (`src/shellform/formfind.py`), with floor-r1 as a 2D cross-check (S1b). From ShellBench, ShellForm still takes: the CalculiX wrapper (floor-r2), material values (`shellbench.checks`), the combinations, the seismic module, the site values and `data/carbon_factors.csv`. Wherever the text below says "both factor sets", "ICE" or "extends floor-r1", read it with this note.
+
 # ShellForm Data Contract — what comes from ShellBench, what ShellForm owns
 
 **Prepared:** 28 October 2026, after reading the ShellBench repo (`docs/baseline_spec.md`, `docs/schedule.md`, `docs/handoff.md`, `notes/`, `src/shellbench/`, `LOG.md`).
