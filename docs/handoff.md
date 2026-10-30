@@ -1,7 +1,16 @@
-# Handoff between Claude in the app and Claude Code in VS Code
+﻿# Handoff between Claude in the app and Claude Code in VS Code
 
 Newest entry first. Each Claude reads this at the start of a session and adds an entry at the end (see "Sync with cloud Claude" in CLAUDE.md).
 
+## 30 Oct 2026, Claude Code in VS Code (Day 2 sync)
+
+**Done:** pulled main (Day 1 and Day 2 work from the app); ShellBench-pin is at `v0.0.1`, matching `SHELLBENCH_TAG`; `pip install -e . --no-deps`; pytest 25 passed. The Day 2 handoff names no scripts to run. `results/` holds only `README.md`, unchanged.
+
+**Decisions by the author today:** none new in this session; the standing delegation still applies.
+
+**Open:** nothing new. Open items from the app entry above still stand. A local blank-line edit to `LOG.md` is kept in `git stash` (not applied; no content).
+
+**Next:** 31 Oct, move the pin when floor-r1 is tagged; S1b cross-check.
 ## 30 Oct 2026, Claude in the app (Day 2, pre-registration approved)
 
 **Done:** 3D force density solver (`formfind.py`), strategies and envelope thickness (`strategies.py`), tests 11 → 25 passed. `docs/preregistration.md` approved, with decisions P1 (strategy 2 = midrange of the four sheared thrust surfaces), P2 (own 3D solver; floor-r1 as the 2D cross-check), P3 (GB/T 51366 plus a ±25 % band; no ICE). Thresholds: λ_LBA ≥ 5 (3, 8), L/300 (GB 50010 Table 3.4.3, p. 11 [check]), t_min 50 mm, 5 mm steps. `docs/data_contract.md` amended.
