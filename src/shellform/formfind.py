@@ -152,3 +152,51 @@ def form_to_rise(net, rise_m, sa_x=0.0, sa_y=0.0):
         raise ValueError("form does not stand up; use negative (compression) q")
     net.q = net.q * (z0 / rise_m)
     return solve(net, plan_loads(net, sa_x=sa_x, sa_y=sa_y))
+
+
+def edge_inset(xyz_form, xyz_plan, span_m):
+    """Return the plan inset of the free edge at its midpoint [m].
+
+    Args:
+        xyz_form: Form-found coordinates, shape (n, 3) [m].
+        xyz_plan: Starting plan grid of the same network, shape (n, 3) [m].
+        span_m: Plan side length [m].
+
+    Returns:
+        How far the mid-edge node on the y = -span/2 side has moved inward.
+    """
+    k = np.argmin(np.hypot(xyz_plan[:, 0], xyz_plan[:, 1] + span_m / 2.0))
+    return xyz_form[k, 1] + span_m / 2.0
+
+
+def corner_network_for_inset(span_m, n, rise_m, inset_ratio, lo=1.0, hi=200.0, tol=1e-3):
+    """Return a corner-supported network whose free edge insets by inset_ratio * span.
+
+    Free edges of a corner-supported net pull in towards the centre; a higher
+    boundary force density keeps them closer to the plan square. This finds the
+    boundary factor by bisection (the inset falls as the factor rises).
+
+    Args:
+        span_m: Plan side length [m].
+        n: Nodes per side.
+        rise_m: Target gravity rise [m].
+        inset_ratio: Target mid-edge inset divided by span [-].
+        lo, hi: Bracket for the boundary factor [-].
+        tol: Tolerance on the inset ratio [-].
+
+    Returns:
+        (network with q scaled to the rise, form coordinates, boundary factor).
+    """
+    def trial(f):
+        net = square_network(span_m, n, "corners", q_boundary_factor=f)
+        plan = net.xyz.copy()
+        xyz = form_to_rise(net, rise_m)
+        return net, xyz, edge_inset(xyz, plan, span_m) / span_m
+
+    for _ in range(60):
+        mid = np.sqrt(lo * hi)
+        net, xyz, r = trial(mid)
+        if abs(r - inset_ratio) < tol:
+            break
+        lo, hi = (mid, hi) if r > inset_ratio else (lo, mid)
+    return net, xyz, mid

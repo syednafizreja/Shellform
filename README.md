@@ -8,7 +8,7 @@ ShellForm extends the seismic form-finding of Michiels & Adriaenssens (2017, 201
 
 ## Status
 
-Day 2 (30 Oct 2026): pre-registration approved; 3D form-finding solver and both strategies; 25 tests. Pinned to ShellBench `v0.0.1` until `floor-r1` lands.
+Day 3 (31 Oct 2026): one shell analysed in CalculiX (static, modal, buckling); 31 tests. Pinned to ShellBench `v0.0.1` until `floor-r1` lands.
 
 | Item | Where | Status |
 |---|---|---|

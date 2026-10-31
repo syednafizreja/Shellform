@@ -2,6 +2,16 @@
 
 Newest entry first. Each Claude reads this at the start of a session and adds an entry at the end (see "Sync with cloud Claude" in CLAUDE.md).
 
+## 31 Oct 2026, Claude in the app (Day 3, one shell through CalculiX)
+
+**Done:** no new ShellBench tag exists (only v0.0.1), so the pin stays. `src/shellform/fe.py` writes an S8R CalculiX deck from a form and runs static, frequency and buckling steps. `scripts/day03_one_shell.py` ran the 10 m, rise 0.15 shell at 80 mm on both supports; results in `results/day03_one_shell.json`, notes in `notes/day03_one_shell.md`. Tests 25 → 31 passed (CalculiX tests skip where `ccx` is missing).
+
+**Decisions by the author today:** none; "lets finish today" under the standing delegation. Claude decided D3-1 (corner free-edge inset 0.10 x span) and recorded it as a pre-registration amendment, with the plan to cross-check `fe.py` against ShellBench `floor-r2`.
+
+**Open:** ν and concrete density are placeholders [?] until a ShellBench tag gives them. On the laptop, `pip install -e . --no-deps` again in env `shellform` and check `ccx` is on PATH (CalculiX 2.23) so the two CalculiX tests run instead of skipping.
+
+**Next:** 1 Nov, sizing loop on the 10 m cases and a mesh check.
+
 ## 30 Oct 2026, Claude Code in VS Code (Day 2 sync)
 
 **Done:** pulled main (Day 1 and Day 2 work from the app); ShellBench-pin is at `v0.0.1`, matching `SHELLBENCH_TAG`; `pip install -e . --no-deps`; pytest 25 passed. The Day 2 handoff names no scripts to run. `results/` holds only `README.md`, unchanged.

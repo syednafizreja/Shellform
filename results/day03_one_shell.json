@@ -1,0 +1,52 @@
+{
+  "shellbench_tag": "v0.0.1",
+  "inputs": {
+    "span_m": 10.0,
+    "rise_ratio": 0.15,
+    "grid_n": 21,
+    "thickness_m": 0.08,
+    "e_pa": 32500000000.0,
+    "e_source": "ShellBench v0.0.1 anchor_frame.E_KN_M2",
+    "nu": 0.2,
+    "density_kg_m3": 2500.0,
+    "nu_density_status": "[?] placeholders, not from ShellBench"
+  },
+  "cases": {
+    "edges": {
+      "boundary_q_factor": 1.0,
+      "surface_area_m2": 106.90348505379654,
+      "max_disp_m": 4.795481e-05,
+      "span_over_disp": 208529.65531507684,
+      "weight_n": 209744.63767554882,
+      "reaction_z_n": 194350.2,
+      "reaction_over_weight": 0.9266039034601578,
+      "periods_s": [
+        0.022291906722637186,
+        0.021891121442747494,
+        0.020178950973018927
+      ],
+      "buckling_factors": [
+        679.8038,
+        709.3879
+      ]
+    },
+    "corners": {
+      "boundary_q_factor": 18.508199720892314,
+      "surface_area_m2": 76.99551024606541,
+      "max_disp_m": 0.001735830539499605,
+      "span_over_disp": 5760.93101973119,
+      "weight_n": 151065.19110278034,
+      "reaction_z_n": 151500.0,
+      "reaction_over_weight": 1.0028782864804628,
+      "periods_s": [
+        0.13919046823673514,
+        0.12233997716891347,
+        0.11096493330563649
+      ],
+      "buckling_factors": [
+        11.75759,
+        18.57048
+      ]
+    }
+  }
+}

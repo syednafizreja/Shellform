@@ -74,3 +74,13 @@ def test_F1_shell_seismic_form_is_shear_of_gravity_form():
     grav = form_to_rise(net, 1.5)
     seis = solve(net, plan_loads(net, sa_x=0.3))
     assert np.allclose(seis[:, 0], grav[:, 0] - 0.3 * grav[:, 2], atol=1e-12)
+
+
+def test_corner_inset_search_hits_target():
+    """The boundary-factor search gives the requested free-edge inset."""
+    from shellform.formfind import corner_network_for_inset, edge_inset
+    net, xyz, f = corner_network_for_inset(10.0, 11, 1.5, 0.10)
+    plan = square_network(10.0, 11, "corners").xyz
+    assert edge_inset(xyz, plan, 10.0) / 10.0 == pytest.approx(0.10, abs=1e-3)
+    assert xyz[:, 2].max() == pytest.approx(1.5)
+    assert f > 1.0
