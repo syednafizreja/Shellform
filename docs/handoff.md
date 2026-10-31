@@ -2,6 +2,16 @@
 
 Newest entry first. Each Claude reads this at the start of a session and adds an entry at the end (see "Sync with cloud Claude" in CLAUDE.md).
 
+## 31 Oct 2026, Claude Code in VS Code (Day 3 sync)
+
+**Done:** pulled main (Day 3 work from the app); ShellBench-pin is at `v0.0.1`, matching `SHELLBENCH_TAG`; no new ShellBench tag on the remote; `pip install -e . --no-deps`; `ccx` found in env `shellform`; pytest 31 passed, 0 skipped, so both CalculiX tests ran on the laptop. Reran `scripts/day03_one_shell.py`: displacements, periods and reactions are identical; only area, weight and reaction ratio differ, in the last one or two digits (about 1e-15 relative, floating-point noise between machines). The committed `results/day03_one_shell.json` is kept unchanged.
+
+**Decisions by the author today:** none new in this session; the standing delegation still applies.
+
+**Open:** nothing new. Open items from the app entry below still stand. A second local blank-line edit to `LOG.md` is kept in `git stash` (not applied; no content).
+
+**Next:** 1 Nov, sizing loop on the 10 m cases and a mesh check.
+
 ## 31 Oct 2026, Claude in the app (Day 3, one shell through CalculiX)
 
 **Done:** no new ShellBench tag exists (only v0.0.1), so the pin stays. `src/shellform/fe.py` writes an S8R CalculiX deck from a form and runs static, frequency and buckling steps. `scripts/day03_one_shell.py` ran the 10 m, rise 0.15 shell at 80 mm on both supports; results in `results/day03_one_shell.json`, notes in `notes/day03_one_shell.md`. Tests 25 → 31 passed (CalculiX tests skip where `ccx` is missing).
